@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mask_detector/mask_on_screen.dart';
 
 import 'home_screen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
             theme: ThemeData(primaryColor: Color(0xff132136)),
             debugShowCheckedModeBanner: false,
-            home: HomeScreen()
+            home: MaskOnScreen()
         );
       },
     );
