@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   loadModel() async{
-    await Tflite.loadModel(model: 'assets/model_unquant.tflite', labels: 'assets/labels.txt');
+    await Tflite.loadModel(model: 'assets/model.tflite', labels: 'assets/labels.txt');
   }
 
   loadImage_gallery() async{
