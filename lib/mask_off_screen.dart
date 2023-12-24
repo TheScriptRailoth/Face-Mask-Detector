@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'home_screen.dart';
 import 'my_colors.dart';
 class MaskOffScreen extends StatefulWidget {
   const MaskOffScreen({super.key});
@@ -11,6 +12,15 @@ class MaskOffScreen extends StatefulWidget {
 }
 
 class _MaskOffScreenState extends State<MaskOffScreen> {
+
+  @override
+  void initState(){
+    Future.delayed(Duration(seconds: 5),(){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+        return HomeScreen();
+      }));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

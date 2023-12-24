@@ -154,9 +154,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          isLoading?Container():Container(
-            child: Text(_predictions[0]['label'].toString().substring(2)),
-          )
+          // isLoading?Container():Container(
+          //   child: Text(_predictions[0]['label'].toString().substring(2)),
+          // )
         ],
       ),
     );

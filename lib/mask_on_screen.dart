@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_detector/home_screen.dart';
 import 'package:mask_detector/my_colors.dart';
 class MaskOnScreen extends StatefulWidget {
   const MaskOnScreen({super.key});
@@ -8,8 +9,16 @@ class MaskOnScreen extends StatefulWidget {
   @override
   State<MaskOnScreen> createState() => _MaskOnScreenState();
 }
-
 class _MaskOnScreenState extends State<MaskOnScreen> {
+
+  @override
+  void initState(){
+    Future.delayed(Duration(seconds: 5),(){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+        return HomeScreen();
+      }));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

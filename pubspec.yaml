@@ -60,6 +60,8 @@ flutter:
     - assets/positive_image.png
     - assets/negative_image.png
     - assets/model.tflite
+    - assets/mask.png
+    - screenshots/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
