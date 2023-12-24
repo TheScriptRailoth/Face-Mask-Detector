@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mast_detector/my_colors.dart';
+import 'package:tflite_v2/tflite_v2.dart';
+
+import 'my_colors.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,9 +15,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLoading=false;
+  bool isLoading=true;
   late File _image;
   final imagePicker= ImagePicker();
+  List _predictions=[];
+
+  @override
+  void initState(){
+    super.initState();
+    loadModel();
+  }
+
+  void dispose(){
+    super.dispose();
+  }
+
+  detect_mask(File image)async{
+    var prediction=await Tflite.runModelOnImage(path: image.path, numResults: 2, threshold: 0.6, imageMean: 127.5, imageStd: 127.5);
+    setState(() {
+      _predictions=prediction!;
+      isLoading=false;
+    });
+  }
+
+  loadModel() async{
+    await Tflite.loadModel(model: 'assets/model_unquant.tflite', labels: 'assets/labels.txt');
+  }
 
   loadImage_gallery() async{
     var image=await imagePicker.pickImage(source: ImageSource.gallery);
@@ -24,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }else{
       _image= File(image.path);
     }
+    detect_mask(_image);
   }
 
   loadImage_camera() async{
@@ -33,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }else{
       _image= File(image.path);
     }
+    detect_mask(_image);
   }
 
   @override
