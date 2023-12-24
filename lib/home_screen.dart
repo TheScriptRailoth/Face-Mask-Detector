@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mast_detector/my_colors.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +13,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading=false;
+  late File _image;
+  final imagePicker= ImagePicker();
+
+  loadImage_gallery() async{
+    var image=await imagePicker.pickImage(source: ImageSource.gallery);
+    if(image==null){
+      return null;
+    }else{
+      _image= File(image.path);
+    }
+  }
+
+  loadImage_camera() async{
+    var image=await imagePicker.pickImage(source: ImageSource.camera);
+    if(image==null){
+      return null;
+    }else{
+      _image= File(image.path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(MyColors.primaryColor)
                 ),
-                onPressed: () {  },
+                onPressed: () {
+                  loadImage_camera();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(MyColors.primaryColor)
                 ),
-                onPressed: () {  },
+                onPressed: () {
+                  loadImage_gallery();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
