@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mask_detector/mask_on_screen.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
+import 'mask_off_screen.dart';
 import 'my_colors.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,6 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
       _predictions=prediction!;
       isLoading=false;
     });
+    if(_predictions[0]['label'].toString().substring(2)=="Class 1"){
+      Navigator.push(context, MaterialPageRoute(builder: (context){
+        return MaskOnScreen();
+      }));
+    }
+    else if(_predictions[0]['label'].toString().substring(2)=="Class 2"){
+      Navigator.push(context, MaterialPageRoute(builder: (context){
+        return MaskOffScreen();
+      }));
+    }
+    else {print("Error");}
   }
 
   loadModel() async{
@@ -141,6 +154,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          isLoading?Container():Container(
+            child: Text(_predictions[0]['label'].toString().substring(2)),
+          )
         ],
       ),
     );
